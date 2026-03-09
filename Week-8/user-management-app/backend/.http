@@ -1,0 +1,17 @@
+### create user
+POST http://localhost:3000/userapi/user
+Content-Type: application/json
+
+{
+    "name":"pavanKumar",
+    "email":"pavan@gmail.com",
+    "dateOfBirth":"10-08-2005",
+    "mobileNumber":9963285731
+}
+
+
+### get all users
+GET http://localhost:3000/userapi/users
+
+###get single user details
+GET http://localhost:3000/userapi/user/69a69dca459981fdfbccfd95
