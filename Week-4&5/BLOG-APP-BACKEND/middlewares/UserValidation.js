@@ -3,7 +3,7 @@ import cookieParser from "cookie-parser";
 
 export function userValidationMiddleware(req, res, next) {
   //get jwt token from cookie
-  let token = req.cookies?.token;
+  let token = req?.cookies?.token;
   if(!token)
     res.status(400).json({message:"jwt does not exist"})
 

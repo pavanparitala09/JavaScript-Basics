@@ -64,10 +64,11 @@ export async function loginUser(loginDetails) {
     { userId: dbUser._id, role: dbUser.role },
     process.env.JWT_SECRET,
     {
-      expiresIn: "1hr",
+      expiresIn: "10hr",
     },
   );
 
+  
   //return success status
   return {
     success: true,

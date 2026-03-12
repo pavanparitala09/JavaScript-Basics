@@ -8,9 +8,12 @@ export const commonRoute = exp.Router();
 //authenticate
 commonRoute.post("/login", async (req, res) => {
   //call login function
+  console.log(req.body)
+
   let results = await loginUser(req.body);
 
   if (!results.success) {
+    console.log(results.message)
     return res.status(404).json({ message: results.message });
   }
 
@@ -22,7 +25,7 @@ commonRoute.post("/login", async (req, res) => {
   });
 
   //send res
-  res.status(200).json({ message: "login success" });
+  res.status(200).json({ message: "login success",payload:results.user });
 });
 
 //logout

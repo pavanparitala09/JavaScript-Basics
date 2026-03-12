@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import { useAuth } from "../store/authStore.js";
+import { useNavigate } from "react-router";
 
 function Login() {
   const [role, setRole] = useState("user");
@@ -6,6 +8,12 @@ function Login() {
     email: "",
     password: "",
   });
+  const navigate = useNavigate()
+
+  const login = useAuth((state) => state.login);
+  const isAuthenticated = useAuth((state) => state.isAuthenticated);
+  const loading = useAuth((state) => state.loading);
+  const currentUser = useAuth((state) => state.currentUser)
 
   const handleChange = (e) => {
     setLoginData({
@@ -22,22 +30,23 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     //console.log({ ...loginData, role });
-    try {
-      const payload = { ...loginData, role };
-      let response = await fetch("http://localhost:3000/common-api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
 
-      const res = await response.json();
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
+    console.log(loginData);
+    let res =await login(loginData);
   };
+
+  //get current user details
+  useEffect(() => {
+    if (isAuthenticated && currentUser) {
+      const role = currentUser.role.toUpperCase(); 
+      
+      if (role === "USER") {
+        navigate("/user-profile"); // Navigate to a string path
+      } else if (role === "AUTHOR") {
+        navigate("/author-profile");
+      }
+    }
+  }, [isAuthenticated, currentUser, navigate]); // Dependencies
 
   return (
     <div className="bg-gray-200 min-h-screen flex flex-col items-center py-10">

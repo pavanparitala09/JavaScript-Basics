@@ -1,5 +1,15 @@
 import { useEffect, useState } from "react";
 import { useRef } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router";
+import {
+  inputClass,
+  primaryBtn,
+  secondaryBtn,
+  formCard,
+  formTitle,
+  labelClass,
+} from "../styles/common";
 
 function Register() {
   const [role, setRole] = useState("user");
@@ -8,8 +18,12 @@ function Register() {
     lastName: "",
     email: "",
     password: "",
-    image: null,
+    profileImageUrl: null,
   });
+
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState(null);
+  const navigate = useNavigate();
 
   const inputRef = useRef(null);
 
@@ -21,7 +35,7 @@ function Register() {
     const { name, value, files } = e.target;
 
     if (files) {
-      setFormData({ ...formData, image: files[0] });
+      setFormData({ ...formData, profileImageUrl: files[0] });
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -29,17 +43,40 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let payload = { ...formData, role };
-    console.log(payload);
+    //let payload = { ...formData, role };
+    console.log(formData);
+    console.log(role);
+    setLoading(true);
 
-    if (payload.role === "user") {
-      let response = await fetch("http://localhost:3000/user-api/register", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const res = await response.json();
-      console.log(res);
+    try {
+      //check if role is user or author
+      if (role === "user") {
+        console.log("user api req");
+
+        //user api req
+        let response = await axios.post(
+          "http://localhost:3000/user-api/register",
+          formData,
+        );
+        console.log(response);
+        //if success navigate to login
+        if (response.status === 201) {
+          navigate("/login");
+        }
+      }
+
+      //author api req
+      let response = await axios.post(
+        "http://localhost:3000/author-api/register",
+        formData,
+      );
+
+      navigate('/login')
+
+    } catch (err) {
+      setErr(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -123,7 +160,7 @@ function Register() {
 
         <input
           type="text"
-          name="image"
+          name="profileImageUrl"
           placeholder="image url"
           onChange={handleChange}
           className="p-4 bg-gray-400"

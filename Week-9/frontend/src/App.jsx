@@ -1,10 +1,11 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router";
 import RootLayout from "./components/RootLayout";
-
+import Article from "./components/Article";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Home from "./components/Home";
+import UserProfile from "./components/UserProfile";
 
 const App = () => {
   const routingObj = createBrowserRouter([
@@ -21,8 +22,16 @@ const App = () => {
           element: <Register />,
         },
         {
-          path:'/home',
-          element:<Home />
+          path: "/home",
+          element: <Home />,
+        },
+        {
+          path: "/user-profile",
+          element: <UserProfile />,
+        },
+        {
+          path: "/article/:articleid",
+          element: <Article />,
         },
       ],
     },
