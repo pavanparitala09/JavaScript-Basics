@@ -1,19 +1,20 @@
 import exp from "express";
 import { loginUser } from "../services/AuthService.js";
 import { userModel } from "../models/UserModel.js";
-import { hash, compare} from "bcrypt";
+import { hash, compare } from "bcrypt";
+import {verifytoken} from "../middlewares/VerifyToken.js";
 
 export const commonRoute = exp.Router();
 
 //authenticate
 commonRoute.post("/login", async (req, res) => {
   //call login function
-  console.log(req.body)
+  console.log(req.body);
 
   let results = await loginUser(req.body);
 
   if (!results.success) {
-    console.log(results.message)
+    console.log(results.message);
     return res.status(404).json({ message: results.message });
   }
 
@@ -25,7 +26,7 @@ commonRoute.post("/login", async (req, res) => {
   });
 
   //send res
-  res.status(200).json({ message: "login success",payload:results.user });
+  res.status(200).json({ message: "login success", payload: results.user });
 });
 
 //logout
@@ -63,3 +64,12 @@ commonRoute.post("/changepassword", async (req, res) => {
     $set: { password: newHashedPassword },
   });
 });
+
+//page refresh
+  commonRoute.get(
+  "/refresh",
+  verifytoken("USER", "Author", "ADMIN"),
+  async (req, res) => {
+    res.status(200).json({ message: "authenticated", payload: req.user });
+  },
+);

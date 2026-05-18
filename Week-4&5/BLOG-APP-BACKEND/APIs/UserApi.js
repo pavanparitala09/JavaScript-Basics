@@ -4,18 +4,47 @@ import { loginUser } from "../services/AuthService.js";
 import Jwt from "jsonwebtoken";
 import { userValidationMiddleware } from "../middlewares/UserValidation.js";
 import { articleModel } from "../models/ArticleModel.js";
+import { upload } from "../config/multer.js";
+//-import cloudinary from "../config/cloudinary.js";
+
 export const userRoute = exp.Router();
 
-userRoute.post("/register", async (req, res) => {
-  //get user doc from request
-  let userObj = req.body;
+userRoute.post(
+  "/register",
+  upload.single("profileImageUrl"),
+  async (req, res, next) => {
+    let cloudinaryResult;
 
-  //call register function and set role to user
-  let newUser = await registerUser({ ...userObj, role: "USER" });
+    try {
+      let userObj = req.body;
+      console.log("Received user object:", userObj);
 
-  //send response
-  res.status(201).json({ message: "User created", payload: newUser });
-});
+      //  Step 1: upload image to cloudinary from memoryStorage (if exists)
+      if (req.file) {
+        cloudinaryResult = await uploadToCloudinary(req.file.buffer);
+      }
+
+      // Step 2: call existing register()
+      const newUserObj = await registerUser({
+        ...userObj,
+        role: "USER",
+        profileImageUrl: cloudinaryResult?.secure_url,
+      });
+
+      res.status(201).json({
+        message: "user created",
+        payload: newUserObj,
+      });
+    } catch (err) {
+      // Step 3: rollback
+      if (cloudinaryResult?.public_id) {
+        await cloudinary.uploader.destroy(cloudinaryResult.public_id);
+      }
+
+      next(err); // send to your error middleware
+    }
+  },
+);
 
 //read all articles
 userRoute.get("/articles", userValidationMiddleware, async (req, res) => {
@@ -78,17 +107,19 @@ userRoute.delete(
     //find article
     let article = await articleModel.findById(articleId);
 
-    if (!article) return res.status(404).json({ message: "Article does not exist" });
+    if (!article)
+      return res.status(404).json({ message: "Article does not exist" });
 
     //check is article is active or not
-    if(!article.isArticleActive)
-      return res.status(500).json({message:"server error try again"})
+    if (!article.isArticleActive)
+      return res.status(500).json({ message: "server error try again" });
 
     //if article exist then find comment
     let comment = article.comment.some((c) => c._id.equals(commentId));
 
     //if comment does not exist
-    if (!comment) return res.status(404).json({ message: "comment does not exist" });
+    if (!comment)
+      return res.status(404).json({ message: "comment does not exist" });
 
     //delete the comment from db
     let deletedComment = await articleModel.findByIdAndUpdate(

@@ -1,0 +1,145 @@
+### User Register
+POST http://localhost:4000/user-api/users
+Content-Type: application/json
+
+{
+  "firstName": 1,
+  "lastName": "paritala",
+  "email": "pavan1@example.com",
+  "password": "pavan",
+  "profileImageUrl": "https://example.com/avatars/user.png"
+}
+
+### User Login
+POST http://localhost:4000/user-api/authenticate
+Content-Type: application/json
+
+{
+  "email": "pavan@example.com",
+  "password": "pavan",
+  "role":"USER"
+}
+
+### Author Register
+POST http://localhost:4000/author-api/users
+Content-Type: application/json
+
+{
+  "firstName": "pavan",
+  "lastName": "Author",
+  "email": "pavan.author@example.com",
+  "password": "pavan",
+  "profileImageUrl": "https://example.com/avatars/author.png"
+}
+
+
+### Author Register
+POST http://localhost:4000/author-api/users
+Content-Type: application/json
+
+{
+  "firstName": "test",
+  "lastName": "Author",
+  "email": "test.author@example.com",
+  "password": "testauthor",
+  "profileImageUrl": "https://example.com/avatars/author.png"
+}
+
+### Author Login
+POST http://localhost:4000/common-api/authenticate
+Content-Type: application/json
+
+{
+  "email": "test.author@example.com",
+  "password": "testauthor",
+  "role":"USER"
+}
+
+
+
+### Create article (AUTHOR)
+POST http://localhost:4000/author-api/articles
+Content-Type: application/json
+
+{
+  "author":"69aeda6fe607c8c65f6d0816",
+  "title":"test1 article",
+  "category":"filiming",
+  "content":"content of test1 article"
+}
+
+
+
+###Read articles of a author
+GET http://localhost:4000/author-api/articles/69aeda6fe607c8c65f6d0816
+
+
+
+### Update article (AUTHOR)
+PUT http://localhost:4000/author-api/articles
+Content-Type: application/json
+
+{
+  "author":"6989799b7013502767d3f82b",
+  "articleId":"698981d2b54ba14743e2e94a",
+  "title":"test2 article updated",
+  "category":"programming",
+  "content":"content of test2 article updated"
+}
+
+
+
+### Logout
+GET  http://localhost:4000/common-api/logout
+
+
+### Get all article for user
+GET  http://localhost:4000/user-api/articles/6989e63e418cbf8179508942
+
+
+### User login 
+POST http://localhost:4000/common-api/authenticate
+Content-Type: application/json
+
+{
+  "email":"pavan@example.com",
+  "password":"pavan",
+  "role":"USER"
+}
+
+
+###
+GET http://google.com/
+
+###get all article for admin
+GET http://localhost:4000/admin-api/articles
+
+
+### Admin login
+POST http://localhost:4000/common-api/authenticate
+Content-Type: application/json
+
+{
+  "email":"admin@gmail.com",
+  "password":"admin123"
+}
+
+### Block a user
+POST http://localhost:4000/admin-api/block-user/6989e63e418cbf8179508942
+
+
+### unblock user
+POST http://localhost:4000/admin-api/unblock-user/6989e63e418cbf8179508942
+
+
+### change password
+POST http://localhost:4000/common-api/change-password/
+Content-Type: application/json
+
+{
+  "email":"pavan@example.com",
+  "currentPassword":"pavan",
+  "newPassword":"pavan@123"
+}
+
+

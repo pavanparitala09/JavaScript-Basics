@@ -3,7 +3,7 @@ import { userModel } from '../models/UserModel.js'
 
 export const userRoute = exp.Router()
 
-userRoute.post('/user', async(req,res) => {
+userRoute.post('/users', async(req,res) => {
     //get user details from body
     let userDetails = req.body
 
