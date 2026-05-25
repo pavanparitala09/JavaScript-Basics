@@ -1,37 +1,58 @@
-### Using Toast in React app
+# Blog Application Frontend (React + Vite Client)
 
-    - npm install react-hot-toast
-    - Add Toaser component at Root
-        <Toaster position="top-center" reverseOrder={false} /> in App.jsx
+A React single-page frontend application designed for authors and users to compose, view, and organize blog articles.
 
-    - Use toast with custom messages
-        Eg:
-            import toast from "react-hot-toast";
+---
 
-            if (resObj.status === 201) {
-                toast.success("Account created successfully");
-                navigate("/login");
-            }
+## 🛠️ Feature Guides & Implementations
 
-### From UserProfile component,
+### 1. Toast Notifications in React
+To display success or error messages (e.g. signup success), the project utilizes **react-hot-toast**:
+*   **Installation**:
+    ```bash
+    npm install react-hot-toast
+    ```
+*   **Integration**: Place the `<Toaster />` component at the application root:
+    ```jsx
+    <Toaster position="top-center" reverseOrder={false} />
+    ```
+*   **Usage**:
+    ```javascript
+    import toast from "react-hot-toast";
 
-    - Read articles of all AUthors
-    - Display them in the form of Grid of cards
-                1 card for extra  small
-                2 cards for small
-                3 cards for medium
-                4 cards from large screen onwards
+    if (resObj.status === 201) {
+        toast.success("Account created successfully");
+        navigate("/login");
+    }
+    ```
 
-### From AuthorProfile component,
+### 2. User Profile Feed Grid (`UserProfile`)
+*   Fetches and displays articles from all authors.
+*   Renders articles inside a responsive grid layout:
+    *   **Extra Small (`xs`)**: 1 card column
+    *   **Small (`sm`)**: 2 cards column
+    *   **Medium (`md`)**: 3 cards column
+    *   **Large (`lg`+)**: 4 cards column
 
-    - Read articles of his own
-    - Display them in the form of Grid of cards
-                1 card for extra  small
-                2 cards for small
-                3 cards for medium
-                4 cards from large screen onwards
+### 3. Author Profile Feed Grid (`AuthorProfile`)
+*   Queries only the articles written by the logged-in author.
+*   Uses the same responsive grid structure ($1 \rightarrow 2 \rightarrow 3 \rightarrow 4$ columns).
 
-### When User /Author click on specific article from Articles list
+### 4. Article Detail View (`ArticleByID`)
+*   When a user clicks on an article card, the client redirects to the detailed view.
+*   Displays:
+    *   Title
+    *   Category
+    *   Content
+    *   Author name
+    *   Timestamps formatted in **IST** time standard.
 
-    - Navigate to "ArticleByID" component along with selected article
-    - Display the  article title, category, content along with author title & time stamps in IST format
+---
+
+## 📂 Project Structure
+*   **`src/components/`**: Houses profiles, forms, card views, and detailing layout components.
+*   **`src/App.jsx`**: Layout root configuring route views and global triggers.
+
+## 🚀 Commands
+1.  Install dependencies: `npm install`
+2.  Launch development server: `npm run dev`

@@ -1,16 +1,17 @@
-# React + Vite
+# React Demo 1: Core Components & Hooks
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An introductory suite of React component demos focused on handling click state hooks, dynamic text inputs, form collections, lists, and task counters.
 
-Currently, two official plugins are available:
+## 📂 Component Demos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+*   **[TaskManager.jsx](./src/components/TaskManager.jsx)**: Main orchestration component showing lists of task cards.
+*   **[TaskList.jsx](./src/components/TaskList.jsx)**: Iterates over tasks array and displays them.
+*   **[AddTask.jsx](./src/components/AddTask.jsx)**: Input forms with button triggers to push new tasks into the state arrays.
+*   **[TaskCount.jsx](./src/components/TaskCount.jsx)**: Small status indicators displaying summary stats.
+*   **[StateDemo.jsx](./src/components/StateDemo.jsx)**: Basic clicking counter illustrating state change reactions.
+*   **[FormDemo.jsx](./src/components/FormDemo.jsx)**: Dynamic inputs reflecting keys as you type.
+*   **[UserRegister.jsx](./src/components/UserRegister.jsx)**: A comprehensive registration page form.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Usage
+1.  Install packages: `npm install`
+2.  Launch: `npm run dev`
