@@ -2,14 +2,14 @@
 
 A basic Node.js Express server to practice routing structures and standard HTTP methods (GET, POST, PUT, DELETE).
 
-## 📂 Files & Structure
+## Files & Structure
 
-*   **[server.js](./server.js)**: Server entrypoint that boots the app on Port 3000, registers JSON parsing middleware, and mounts API routers.
-*   **[API/userApi.js](./API/userApi.js)**: Handles user resource routes `/users-api`.
-*   **[API/productApi.js](./API/productApi.js)**: Handles product catalog routes `/products-api`.
-*   **[users.http](./users.http) / [products.http](./products.http)**: Local HTTP test request sheets.
+* **[server.js](./server.js)**: Server entrypoint that boots the app on Port 3000, registers JSON parsing middleware, and mounts API routers.
+* **[API/userApi.js](./API/userApi.js)**: Handles user resource routes `/users-api`.
+* **[API/productApi.js](./API/productApi.js)**: Handles product catalog routes `/products-api`.
+* **[users.http](./users.http) / [products.http](./products.http)**: Local HTTP test request sheets.
 
-## 🛠️ Getting Started
+## ️ Getting Started
 
 1.  Navigate to this folder:
     ```bash

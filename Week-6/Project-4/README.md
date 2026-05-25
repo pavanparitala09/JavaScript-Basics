@@ -2,7 +2,7 @@
 
 A user testimonial component with quote graphics, description content, and author metadata.
 
-## 📂 Files
+## Files
 
-*   **[index.html](./index.html)**: Layout containing quote structures and author bios.
-*   **[style.css](./style.css)**: Stylesheet adding italic fonts, color blocks, and margins.
+* **[index.html](./index.html)**: Layout containing quote structures and author bios.
+* **[style.css](./style.css)**: Stylesheet adding italic fonts, color blocks, and margins.

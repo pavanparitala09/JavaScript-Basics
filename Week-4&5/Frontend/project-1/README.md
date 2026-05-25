@@ -2,10 +2,10 @@
 
 A static webpage combining HTML structure and external stylesheets to build a styled interface.
 
-## 📂 Files
+## Files
 
-*   **[index.html](./index.html)**: The homepage containing sections, lists, images, and text.
-*   **[style.css](./style.css)**: Stylesheet managing layout sizing, text formatting, borders, and margins.
+* **[index.html](./index.html)**: The homepage containing sections, lists, images, and text.
+* **[style.css](./style.css)**: Stylesheet managing layout sizing, text formatting, borders, and margins.
 
-## 🛠️ Usage
+## ️ Usage
 Open `index.html` in your browser.
