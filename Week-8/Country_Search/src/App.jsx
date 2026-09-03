@@ -17,22 +17,24 @@ function App() {
         setLoading(true);
         setError(null);
 
-        const response = await fetch(
-          "https://restcountries.com/v3.1/all?fields=name,flags,capital,region,population",
-        );
+        const response = await fetch("/countries.json");
 
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
 
-        setCountries(data);
-        setFilteredCountries(data);
+        if (Array.isArray(data)) {
+          setCountries(data);
+          setFilteredCountries(data);
+        } else {
+          throw new Error("Expected an array of countries but received invalid format");
+        }
       } catch (err) {
+        console.error("Error fetching countries:", err);
         setError(
           "Failed to fetch countries. Please check your internet connection.",
-          err,
         );
       } finally {
         setLoading(false);
